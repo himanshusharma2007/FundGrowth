@@ -8,117 +8,175 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
-    <link rel="stylesheet" href="styles.css" />
   </head>
   <style>
-    form{
-        max-width: 70%;
+    form {
+      max-width: 70%;
     }
-    .heading{
-        max-width: 70%;
-        margin: 0px auto;
+    .heading {
+      max-width: 70%;
+      margin: 0px auto;
+    }
+    .error-modal-glass {
+      background: rgba(255, 255, 255, 0.2); /* Semi-transparent white */
+      backdrop-filter: blur(10px); /*
+       Blurring the background */
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0px;
+      display: flex;
+      /* visibility: hidden; */
+      justify-content: center;
+      align-items: center;
+      -webkit-backdrop-filter: blur(10px); /* Blurring for Safari */
+      border: 1px solid rgba(255, 255, 255, 0.3); /* Optional border to enhance the effect */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+      padding: 20px;
+    }
+    .error-modal {
+      background-color: lightgray;
+      width: 30vw;
+      min-width: 300px;
+      height: 25vh;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 10px;
+    }
+    #close-error-modal {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      width: 30px;
     }
   </style>
   <body>
-    <div class="container py-5">
+    <div>
+      <div class="container py-5">
         <div class="heading">
-
-            <h1 class=" text-center mb-4">FundGrowth Calculator</h1>
-            <p>Unlock the power of compounding with our intuitive calculator. Easily plan and calculate your investment growth by adjusting factors like initial investment, monthly contributions, interest rates, and time horizon.</p>
+          <h1 class="text-center mb-4">FundGrowth Calculator</h1>
+          <p class="d-none d-md-block">
+            Unlock the power of compounding with our intuitive calculator.
+            Easily plan and calculate your investment growth by adjusting
+            factors like initial investment, monthly contributions, interest
+            rates, and time horizon.
+          </p>
         </div>
-      <form id="investment-form" class="mx-auto">
-        <div class="form-group">
-          <label for="initial-investment" class="font-weight-bold"
-            >Initial Investment:</label
-          >
-          <input
-            type="number"
-            id="initial-investment"
-            name="initial-investment"
-            class="form-control"
-            required
-            aria-label="Initial Investment"
-          />
-        </div>
-        <div class="form-group">
-          <label for="monthly-contribution" class="font-weight-bold"
-            >Monthly Contribution:</label
-          >
-          <input
-            type="number"
-            id="monthly-contribution"
-            name="monthly-contribution"
-            class="form-control"
-            required
-            aria-label="Monthly Contribution"
-          />
-        </div>
-        <div class="form-group">
-          <label for="annual-interest-rate" class="font-weight-bold"
-            >Annual Interest Rate (%):</label
-          >
-          <input
-            type="number"
-            id="annual-interest-rate"
-            name="annual-interest-rate"
-            class="form-control"
-            required
-            aria-label="Annual Interest Rate"
-          />
-        </div>
-        <div class="form-group">
-          <label for="number-of-years" class="font-weight-bold"
-            >Number of Years:</label
-          >
-          <input
-            type="number"
-            id="number-of-years"
-            name="number-of-years"
-            class="form-control"
-            required
-            aria-label="Number of Years"
-          />
-        </div>
-        <button type="submit" class="btn btn-primary btn-block" onclick="Calculate(event)">
-          Calculate
-        </button>
-      </form>
-    </div>
-
-    <!-- Result Modal -->
-    <div
-      class="modal fade"
-      id="resultModal"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="resultModalLabel"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="resultModalLabel">Calculation Result</h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
+        <form id="investment-form" class="mx-auto">
+          <div class="form-group">
+            <label for="initial-investment" class="font-weight-bold"
+              >Initial Investment:</label
             >
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <input
+              type="number"
+              id="initial-investment"
+              name="initial-investment"
+              class="form-control"
+              required
+              aria-label="Initial Investment"
+            />
           </div>
-          <div class="modal-body">
-            <p id="your-investment"></p>
-            <p id="final-balance"></p>
-            <p id="total-profit"></p>
+          <div class="form-group">
+            <label for="monthly-contribution" class="font-weight-bold"
+              >Monthly Contribution:</label
+            >
+            <input
+              type="number"
+              id="monthly-contribution"
+              name="monthly-contribution"
+              class="form-control"
+              required
+              aria-label="Monthly Contribution"
+            />
+          </div>
+          <div class="form-group">
+            <label for="annual-interest-rate" class="font-weight-bold"
+              >Annual Interest Rate (%):</label
+            >
+            <input
+              type="number"
+              id="annual-interest-rate"
+              name="annual-interest-rate"
+              class="form-control"
+              required
+              aria-label="Annual Interest Rate"
+            />
+          </div>
+          <div class="form-group">
+            <label for="number-of-years" class="font-weight-bold"
+              >Number of Years:</label
+            >
+            <input
+              type="number"
+              id="number-of-years"
+              name="number-of-years"
+              class="form-control"
+              required
+              aria-label="Number of Years"
+            />
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary btn-block"
+            onclick="Calculate(event)"
+          >
+            Calculate
+          </button>
+        </form>
+      </div>
+
+      <!-- Result Modal -->
+      <div
+        class="modal fade"
+        id="resultModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="resultModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="resultModalLabel">
+                Calculation Result
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p id="your-investment"></p>
+              <p id="final-balance"></p>
+              <p id="total-profit"></p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+      <!-- Error Modal -->
+      <div id="error-modal" class="error-modal-glass" style="display:none">
+        <div class="error-modal">
+          <div class="header">
+            <h5 class="title">Error</h5>
+            <button id="close-error-modal">&#10005;</button>
+          </div>
+          <div style="color: red; margin-top: 20px; font-size: large; font-weight: 400;">
+            <p id="error-message"></p>
+          </div>
+        </div>
+      </div>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="script.js"></script>
+      <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+      <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+      <script src="script.js"></script>
+    </div>
   </body>
 </html>

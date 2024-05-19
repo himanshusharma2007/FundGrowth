@@ -23,7 +23,9 @@ function Calculate(e) {
     isNaN(interestRate) ||
     isNaN(years)
   ) {
-    showErrorModal("Invalid input. Please enter numeric values.");
+    showErrorModal(
+      "Invalid input. Please enter numeric values in all of the feilds."
+    );
     return;
   }
 
@@ -34,25 +36,39 @@ function Calculate(e) {
     deposit += yearProfit;
   }
   let userInvest = initialInvest + years * 12 * monthlyInvest;
-  let profit = deposit - (initialInvest + years * 12 * monthlyInvest);
+  let profit = deposit - userInvest;
 
   displayResult(userInvest, deposit.toFixed(2), profit.toFixed(2));
 }
 
 function displayResult(userInvest, finalBalance, totalProfit) {
-  document.getElementById(
-    "your-investment"
-  ).textContent = `Your Investment: ${userInvest.toFixed(2)}`;
-  document.getElementById(
-    "final-balance"
-  ).textContent = `Final Balance: ${finalBalance}`;
-  document.getElementById(
-    "total-profit"
-  ).textContent = `Total Profit: ${totalProfit}`;
-  $("#resultModal").modal("show");
+  const yourInvestmentElement = document.getElementById("your-investment");
+  const finalBalanceElement = document.getElementById("final-balance");
+  const totalProfitElement = document.getElementById("total-profit");
+
+  if (yourInvestmentElement && finalBalanceElement && totalProfitElement) {
+    yourInvestmentElement.textContent = `Your Investment: ${userInvest.toFixed(
+      2
+    )}`;
+    finalBalanceElement.textContent = `Final Balance: ${finalBalance}`;
+    totalProfitElement.textContent = `Total Profit: ${totalProfit}`;
+    $("#resultModal").modal("show");
+  }
 }
 
 function showErrorModal(message) {
-  $("#resultModal .modal-body").html(`<p class="text-danger">${message}</p>`);
-  $("#resultModal").modal("show");
+  const errorModal = document.getElementById("error-modal");
+  const errorMessage = document.getElementById("error-message");
+  const closeButton = document.getElementById("close-error-modal");
+
+  console.log(closeButton);
+  if (errorModal) {
+    errorModal.style.display = "block";
+     closeButton.addEventListener("click", () => {
+       errorModal.style.display = "none";
+     });
+     errorMessage.textContent=message;
+  
+   
+  }
 }
